@@ -10,7 +10,7 @@ import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename="/goit-react-hw-05-movies/">
           <App />
       </BrowserRouter>
     </Provider>   
