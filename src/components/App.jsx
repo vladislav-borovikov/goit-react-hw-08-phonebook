@@ -1,9 +1,9 @@
 import { Route, Switch } from "react-router-dom";
-import Navigation from "./Navigation/Navigation";
 import RegistrationFormPage from "./Views/RegistrationFormPage";
 import PhonebookPage from "./Views/PhonebookPage";
 import HomePage from "./Views/HomePage";
 import LoginForm from "./LoginForm/LoginForm";
+import HederNavigat from "./Views/HederNavigat";
 
 
 import "./App.css";
@@ -11,7 +11,7 @@ import "./App.css";
 function App() {
   return (
     <>
-      <Navigation />
+      <HederNavigat />
 
       <Switch>
         <Route exact path="/" component={HomePage}/>
