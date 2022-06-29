@@ -6,14 +6,11 @@ import RegistView from './views/RegistView';
 import LoginView from './views/LoginView';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsFetching } from 'redax/auth/auth-selector';
-import { lazy, Suspense, useEffect } from 'react';
+import {  Suspense, useEffect } from 'react';
 import { refresh } from 'redax/auth/auth-operation';
 import PrivatRout from './PrivatRout/PrivatRout';
 import PublicRout from './PublicRoute/PublicRout';
 
-// const AppBar = lazy(() => import('./views/AppBar'));
-// const RegistView = lazy(() => import('./views/RegistView'));
-// const LoginView = lazy(() => import('./views/LoginView'));
 
 function App() {
     const dispatch = useDispatch();
