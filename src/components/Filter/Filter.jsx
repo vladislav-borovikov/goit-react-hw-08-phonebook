@@ -1,11 +1,11 @@
 import React from "react";
+import TextField from '@mui/material/TextField';
 
 const Filter = ({ value, onChange }) => {
-  return (
-    <label>
-      Find contact:
-      <input type="text" name="" value={value} onChange={onChange} />
-    </label>
+  return (<>
+    
+          <TextField id="filled-basic" label="Find contact:" variant="filled" type="text" name="" value={value} onChange={onChange} />
+</>
   );
 };
 

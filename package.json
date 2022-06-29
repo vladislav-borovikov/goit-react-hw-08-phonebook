@@ -2,8 +2,11 @@
   "name": "react-homework-template",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://vladislav-borovikov.github.io/goit-react-hw-08-phonebook/",
+  "homepage": "https://vladislav-borovikov.github.io/goit-react-hw-07-phonebook/",
   "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/material": "^5.8.6",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
@@ -13,8 +16,9 @@
     "react-dom": "^18.0.0",
     "react-hot-toast": "^2.2.0",
     "react-redux": "^8.0.1",
-    "react-router-dom": "^5.2.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
+    "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "spinners-react": "^1.0.7",
     "web-vitals": "^2.1.3"

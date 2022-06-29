@@ -1,27 +1,48 @@
-import { Route, Switch } from "react-router-dom";
-import RegistrationFormPage from "./Views/RegistrationFormPage";
-import PhonebookPage from "./Views/PhonebookPage";
-import HomePage from "./Views/HomePage";
-import LoginForm from "./LoginForm/LoginForm";
-import HederNavigat from "./Views/HederNavigat";
+import { Navigate, Route, Routes } from 'react-router-dom';
+import AppBar from './views/AppBar';
+import HomeView from './views/HomeView';
+import ContactsWievs from './views/ContactsWievs';
+import RegistView from './views/RegistView';
+import LoginView from './views/LoginView';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIsFetching } from 'redax/auth/auth-selector';
+import { lazy, Suspense, useEffect } from 'react';
+import { refresh } from 'redax/auth/auth-operation';
+import PrivatRout from './PrivatRout/PrivatRout';
+import PublicRout from './PublicRoute/PublicRout';
 
-
-import "./App.css";
+// const AppBar = lazy(() => import('./views/AppBar'));
+// const RegistView = lazy(() => import('./views/RegistView'));
+// const LoginView = lazy(() => import('./views/LoginView'));
 
 function App() {
-  return (
-    <>
-      <HederNavigat />
+    const dispatch = useDispatch();
+  const isFetching = useSelector(getIsFetching);
 
-      <Switch>
-        <Route exact path="/" component={HomePage}/>
-        <Route path="/register" component={RegistrationFormPage} />
-        <Route path="/contacts" component={PhonebookPage} />
-        <Route path="/login" component={LoginForm}/> 
-      </Switch>
-    
-    </>
-    
+  useEffect(() => {
+    dispatch(refresh());
+  }, [dispatch]);
+
+  return (
+      !isFetching &&
+    (<>
+      <Suspense fallback={<div>Загрузка...</div>}></Suspense>
+      <AppBar />
+      <Routes>
+        <Route path='/' element={<PublicRout>
+            <HomeView/>
+        </PublicRout>} />
+        <Route path='register' element={<PublicRout restricted>
+            <RegistView/>
+        </PublicRout>} />
+        <Route path='login' element={<PublicRout restricted>
+            <LoginView/>
+        </PublicRout>} />      
+        <Route path="contacts" element={<PrivatRout>
+                <ContactsWievs />
+        </PrivatRout>}/>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes></>)    
   );
 }
 

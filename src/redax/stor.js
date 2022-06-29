@@ -1,12 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit'
-import filterSlice, {phonebookApi} from './redusers'
-import { setupListeners } from '@reduxjs/toolkit/query'
-
-
-// import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
+import storage from 'redux-persist/lib/storage';
+import persistStore from 'redux-persist/es/persistStore';
+import logger from 'redux-logger';
+import persistReducer from 'redux-persist/es/persistReducer';
 import {
-  persistStore,
-  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -14,44 +11,49 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-// import storage from 'redux-persist/lib/storage';
-import authSlice from './auth/auth-slice';
 
+import { default as authReducers } from './auth/auth-slice';
+import contactsReducers from './contacts/contacts-slice';
 
-// const authPersistConfig = {
-//   key: 'auth',
+const authPersistConfig = {
+  key: 'auth',
+  storage,
+  whitelist: ['token'],
+};
+
+// const contactsPersistConfig = {
+//   key: 'contacts',
 //   storage,
-//   whitelist: ['token'],
 // };
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
-    auth: authSlice,
-    // todos: todosReducer,
+    auth: persistReducer(authPersistConfig, authReducers),
+    // contacts: persistReducer(contactsPersistConfig, contactsReducers),
+    contacts: contactsReducers,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
+
+  middleware: getDefaultMiddleware => [
+    ...getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
+    logger,
+  ],
   devTools: process.env.NODE_ENV === 'development',
 });
 
-// export const persistor = persistStore(store);
+export default store;
+export const persistor = persistStore(store);
 
 // export const store = configureStore({
 //   reducer: {
-//     [phonebookApi.reducerPath]: phonebookApi.reducer,
-//     filter: filterSlice
-
+//     contacts: persistReducer(contactsPersistConfig, contactsReducers),
+//     auth: authSlice,
 //   },
-//   middleware: (getDefaultMiddleware) =>[
+//   middleware: getDefaultMiddleware => [
 //     ...getDefaultMiddleware(),
 //     phonebookApi.middleware,
-//   ]
-// })
-
-// setupListeners(store.dispatch)
-
-
+//   ],
+// });

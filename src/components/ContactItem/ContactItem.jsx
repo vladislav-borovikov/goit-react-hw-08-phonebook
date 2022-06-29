@@ -1,19 +1,22 @@
-import { useDeleContactMutation } from '../../redax/redusers'
-import { SpinnerInfinity } from 'spinners-react';
+
+import { Button } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { deleteContact } from "redax/contacts/contacts-operation";
 
 
 const ContactItem = ({ id, name, number}) => {
-  const [deletContact, {isLoading: isDeliting}] = useDeleContactMutation()
 
+  const dispatch = useDispatch()
     
     return (   
       <li key={id}>
           <p>
             {name} {number} 
-          </p>
-          <button type="submit" onClick={() => deletContact(id)}>
-                  {isDeliting ? <SpinnerInfinity size="35" /> : 'DELETE'}
-          </button>
+        </p>
+
+        <Button variant="outlined" color="error" type="submit" onClick={() => dispatch(deleteContact(id))}>
+           Delete
+          </Button>
         </li>
     
     

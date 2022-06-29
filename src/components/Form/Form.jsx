@@ -1,4 +1,7 @@
-import {useState} from "react";
+import { useState } from "react";
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 
 
@@ -30,8 +33,7 @@ const Form = ({onSubmit}) => {
 
   return (
     <form onSubmit={handlSubmitData}>
-      <label> Name: </label>
-      <input
+      <TextField id="outlined-basic" label="Name:" variant="outlined" 
         type="text"
         name="name"
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -40,8 +42,7 @@ const Form = ({onSubmit}) => {
         value={name}
         onChange={handlChang}
       />
-      <label> Telephone: </label>
-      <input
+      <TextField id="outlined-basic" label="Telephone:" variant="outlined" 
         type="tel"
         name="number"
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -50,7 +51,7 @@ const Form = ({onSubmit}) => {
         value={number}
         onChange={handlChang}
       />
-      <button type="submit"> Add contact </button>
+      <Button type="submit" variant="contained" size="large"> Add contact </Button>
     </form>
   )
 }
